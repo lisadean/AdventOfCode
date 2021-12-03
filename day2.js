@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const inputFile = 'input-2.txt';
+const input = fs.readFileSync(inputFile, 'utf-8').split(/\r?\n/);
 
 const debugLog = (idx, message, array) => {
   const linesToLog = 10;
@@ -15,8 +16,6 @@ function part1() {
 
   let x = 0;
   let y = 0;
-
-  const input = fs.readFileSync(inputFile, 'utf-8').split(/\r?\n/);
 
   input.forEach((line, idx) => {
     const direction = line.split(' ');
@@ -40,8 +39,6 @@ function part2() {
   let y = 0;
   let aim = 0;
 
-  const input = fs.readFileSync(inputFile, 'utf-8').split(/\r?\n/);
-
   input.forEach((line, idx) => {
     const direction = line.split(' ');
     if (direction[0] === 'forward') {
@@ -62,5 +59,5 @@ function part2() {
   console.log(`Final result: ${x * y}`);
 }
 
-// part1();
+part1();
 part2();
