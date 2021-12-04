@@ -53,7 +53,45 @@ function part1() {
 
 function part2() {
   console.log(`\n===== PART TWO =====`);
+
+  const findRating = (array, bitCriteria, index = 0) => {
+    let zeroArray = [],
+      oneArray = [],
+      result = [],
+      least = bitCriteria === 'least';
+    array.forEach((item) => {
+      if (item[index] === '0') {
+        zeroArray.push(item);
+      } else {
+        oneArray.push(item);
+      }
+    });
+    if (zeroArray.length === oneArray.length) {
+      result = least ? zeroArray : oneArray;
+    } else if (zeroArray.length < oneArray.length) {
+      result = least ? zeroArray : oneArray;
+    } else {
+      result = least ? oneArray : zeroArray;
+    }
+    if (result.length !== 1) {
+      index++;
+      return findRating(result, bitCriteria, index);
+    }
+    return result;
+  };
+
+  const oRatingArray = findRating(input, 'most');
+  console.log(`oRatingArray: ${oRatingArray}`);
+  const cO2ScrubberRatingArray = findRating(input, 'least');
+  console.log(`cO2ScrubberRatingArray: ${cO2ScrubberRatingArray}`);
+
+  const oxygenGeneratorRating = parseInt(oRatingArray[0], 2);
+  console.log(`Oxygen generator rating: ${oxygenGeneratorRating}`);
+  const cO2ScrubberRating = parseInt(cO2ScrubberRatingArray[0], 2);
+  console.log(`cO2 scrubber rating: ${cO2ScrubberRating}`);
+  const lifeSupportRating = oxygenGeneratorRating * cO2ScrubberRating;
+  console.log(`Life support rating: ${lifeSupportRating}`);
 }
 
 part1();
-// part2();
+part2();
