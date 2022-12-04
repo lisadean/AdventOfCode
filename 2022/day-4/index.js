@@ -14,30 +14,33 @@ const calculateElfRanges = (pair) => {
 };
 
 const part1 = async () => {
-  let containingPairs = 0;
-  input.forEach((pair) => {
-    const { first, second } = calculateElfRanges(pair);
-    if (first[0] <= second[0] && first[1] >= second[1]) {
-      // First contains second
-      containingPairs += 1;
-    } else if (second[0] <= first[0] && second[1] >= first[1]) {
-      // Second contains first
-      containingPairs += 1;
-    }
-  });
-  console.log(containingPairs);
+  console.log(
+    input.reduce((containingPairs, pair) => {
+      const { first, second } = calculateElfRanges(pair);
+      if (first[0] <= second[0] && first[1] >= second[1]) {
+        // First contains second
+        return containingPairs + 1;
+      } else if (second[0] <= first[0] && second[1] >= first[1]) {
+        // Second contains first
+        return containingPairs + 1;
+      }
+      return containingPairs;
+    }, 0)
+  );
 };
 
 const part2 = async () => {
-  let containingPairs = 0;
-  input.forEach((pair) => {
-    const { first, second } = calculateElfRanges(pair);
-    if (first[0] <= second[0] && first[1] >= second[0]) {
-      containingPairs += 1;
-    } else if (second[0] <= first[0] && second[1] >= first[0]) {
-      containingPairs += 1;
-    }
-  });
-  console.log(containingPairs);
+  console.log(
+    input.reduce((containingPairs, pair) => {
+      const { first, second } = calculateElfRanges(pair);
+      if (first[0] <= second[0] && first[1] >= second[0]) {
+        return containingPairs + 1;
+      } else if (second[0] <= first[0] && second[1] >= first[0]) {
+        return containingPairs + 1;
+      }
+      return containingPairs;
+    }, 0)
+  );
 };
+part1();
 part2();
