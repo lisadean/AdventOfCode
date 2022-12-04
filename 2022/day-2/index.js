@@ -1,110 +1,117 @@
 import { readFile } from 'fs/promises';
 // const inputFile = 'sample.txt'; // part 1 = 15, part 2 = 12
-const inputFile = 'input.txt'; // part 1 = 8392, part 2 = 10116
+// const inputFile = 'input.txt'; // part 1 = 8392, part 2 = 10116
 
-const input = (await readFile(inputFile, { encoding: 'utf8' }))
-  .split('\n')
-  .map((x) => x.split(' '));
-
-const itemValue = {
-  rock: 1,
-  paper: 2,
-  scissors: 3,
+const getInput = async (sample) => {
+  const inputFile = sample ? 'sample.txt' : 'input.txt';
+  return (await readFile(inputFile, { encoding: 'utf8' }))
+    .split('\n')
+    .map((x) => x.split(' '));
 };
 
-const rules = {
+const results = {
+  lose: {
+    code: ['X'],
+    value: 0,
+  },
+  draw: {
+    code: ['Y'],
+    value: 3,
+  },
+  win: {
+    code: ['Z'],
+    value: 6,
+  },
+};
+
+const items = {
   rock: {
+    code: ['A', 'X'],
+    value: 1,
     beats: 'scissors',
     losesTo: 'paper',
   },
   paper: {
+    code: ['B', 'Y'],
+    value: 2,
     beats: 'rock',
     losesTo: 'scissors',
   },
   scissors: {
+    code: ['C', 'Z'],
+    value: 3,
     beats: 'paper',
     losesTo: 'rock',
   },
 };
 
-const resultValue = {
-  lose: 0,
-  draw: 3,
-  win: 6,
+const getKeynameFromCode = (code, object) =>
+  Object.keys(object).find((key) => object[key].code.includes(code));
+
+const part1 = async (log) => {
+  console.log(
+    input.reduce((totalScore, line) => {
+      let roundResult,
+        roundScore = 0;
+      const [opponent, me] = line;
+      const opponentPlay = getKeynameFromCode(opponent, items);
+      const myPlay = getKeynameFromCode(me, items);
+      if (opponentPlay === myPlay) {
+        roundResult = 'draw';
+      } else if (items[myPlay].beats === opponentPlay) {
+        roundResult = 'win';
+      } else {
+        roundResult = 'lose';
+      }
+      roundScore += results[roundResult].value;
+      roundScore += items[myPlay].value;
+      totalScore += roundScore;
+      if (log)
+        console.log(
+          line,
+          roundResult,
+          results[roundResult].value,
+          '+',
+          items[myPlay].value,
+          roundScore,
+          totalScore
+        );
+      return totalScore;
+    }, 0)
+  );
 };
-
-const itemDescription = {
-  A: 'rock',
-  B: 'paper',
-  C: 'scissors',
-  X: 'rock',
-  Y: 'paper',
-  Z: 'scissors',
+const part2 = async (log) => {
+  console.log(
+    input.reduce((totalScore, line) => {
+      let myPlay,
+        roundScore = 0;
+      const [opponent, resultCode] = line;
+      const opponentPlay = getKeynameFromCode(opponent, items);
+      const result = getKeynameFromCode(resultCode, results);
+      if (result === 'draw') {
+        myPlay = opponentPlay;
+      } else if (result === 'win') {
+        myPlay = items[opponentPlay].losesTo;
+      } else {
+        myPlay = items[opponentPlay].beats;
+      }
+      roundScore += results[result].value;
+      roundScore += items[myPlay].value;
+      totalScore += roundScore;
+      if (log)
+        console.log(
+          line,
+          result,
+          results[result].value,
+          '+',
+          items[myPlay].value,
+          roundScore,
+          totalScore
+        );
+      return totalScore;
+    }, 0)
+  );
 };
-
-const part1 = async () => {
-  let totalScore = 0;
-
-  input.forEach((line) => {
-    let roundResult,
-      roundScore = 0;
-    const [opponent, me] = line;
-    if (itemDescription[opponent] === itemDescription[me]) {
-      roundResult = 'draw';
-    } else if (rules[itemDescription[me]].beats === itemDescription[opponent]) {
-      roundResult = 'win';
-    } else {
-      roundResult = 'lose';
-    }
-    roundScore += resultValue[roundResult];
-    roundScore += itemValue[itemDescription[me]];
-    totalScore += roundScore;
-    // console.log(
-    //   line,
-    //   roundResult,
-    //   resultValue[roundResult],
-    //   '+',
-    //   itemValue[itemDescription[me]],
-    //   roundScore,
-    //   totalScore
-    // );
-  });
-  console.log(totalScore);
-};
-const part2 = async () => {
-  const resultMap = {
-    X: 'lose',
-    Y: 'draw',
-    Z: 'win',
-  };
-
-  let totalScore = 0;
-
-  input.forEach((line) => {
-    let myPlay,
-      roundScore = 0;
-    const [opponentPlay, result] = line;
-    if (resultMap[result] === 'draw') {
-      myPlay = itemDescription[opponentPlay];
-    } else if (resultMap[result] === 'win') {
-      myPlay = rules[itemDescription[opponentPlay]].losesTo;
-    } else {
-      myPlay = rules[itemDescription[opponentPlay]].beats;
-    }
-    roundScore += resultValue[resultMap[result]];
-    roundScore += itemValue[myPlay];
-    totalScore += roundScore;
-    // console.log(
-    //   line,
-    //   resultMap[result],
-    //   resultValue[resultMap[result]],
-    //   '+',
-    //   itemValue[myPlay],
-    //   roundScore,
-    //   totalScore
-    // );
-  });
-  console.log(totalScore);
-};
+const input = await getInput();
 part1();
 part2();
