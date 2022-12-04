@@ -1,10 +1,12 @@
 import { readFile } from 'fs/promises';
-// const inputFile = 'sample.txt'; // part 1 = 2, part 2 = 4
-const inputFile = 'input.txt'; // part 1 = 524, part 2 = 798
 
-const input = (await readFile(inputFile, { encoding: 'utf8' }))
-  .split('\n')
-  .map((x) => x.split(','));
+const getInput = async (sample) => {
+  const inputFile = sample ? 'sample.txt' : 'input.txt';
+  return (await readFile(inputFile, { encoding: 'utf8' }))
+    .split('\n')
+    .map((x) => x.split(','));
+};
+
 const calculateElfRanges = (pair) => {
   const getRange = (idx) => pair[idx].split('-').map((x) => Number(x));
   return {
@@ -42,5 +44,6 @@ const part2 = async () => {
     }, 0)
   );
 };
-part1();
-part2();
+const input = await getInput();
+part1(); // sample = 2, real = 524
+part2(); // sample = 4, real = 798
