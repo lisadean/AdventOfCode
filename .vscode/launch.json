@@ -12,6 +12,7 @@
       "cwd": "${fileDirname}",
       "program": "${file}"
       // "program": "${workspaceFolder}/2022/day-1/index.js"
+      // "outputCapture": "std"
     }
   ]
 }
