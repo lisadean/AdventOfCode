@@ -77,6 +77,21 @@ console.log('part 1 totalScore', totalScore);
 //   Z: 'need to win', // 2, -1
 // };
 
+const rules = {
+  rock: {
+    beats: 'scissors',
+    losesTo: 'paper',
+  },
+  paper: {
+    beats: 'rock',
+    losesTo: 'scissors',
+  },
+  scissors: {
+    beats: 'paper',
+    losesTo: 'rock',
+  },
+};
+
 // input.forEach((line) => {
 //   const [player1Play, neededResult] = line;
 //   // a = 1, draw = 0
