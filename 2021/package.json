@@ -1,0 +1,19 @@
+{
+  "name": "aoc2021",
+  "version": "1.0.0",
+  "description": "2021 Advent of Code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lisadean/AdventOfCode.git"
+  },
+  "author": "Lisa Dean",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lisadean/AdventOfCode/issues"
+  },
+  "homepage": "https://github.com/lisadean/AdventOfCode#readme"
+}
