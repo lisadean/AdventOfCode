@@ -1,4 +1,4 @@
-import { go } from '../utils.js';
+import { go } from './utils.js';
 
 const calculateElfRanges = (pair) => {
   const getRange = (idx) => pair[idx].split('-').map((x) => Number(x));
