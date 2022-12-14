@@ -7,11 +7,31 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Test run",
       "skipFiles": ["<node_internals>/**"],
       "cwd": "${fileDirname}",
+      "args": ["sample.txt", 1],
       "program": "${file}"
-      // "program": "${workspaceFolder}/2022/day-1/index.js"
+      // "outputCapture": "std"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Real run",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${fileDirname}",
+      "args": ["input.txt"],
+      "program": "${file}"
+      // "outputCapture": "std"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run (before 2022 day 7)",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${fileDirname}",
+      "args": ["sample.txt"],
+      "program": "${file}"
       // "outputCapture": "std"
     }
   ]
