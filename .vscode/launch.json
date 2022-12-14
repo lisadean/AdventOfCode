@@ -7,10 +7,44 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "temp",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${fileDirname}",
+      "args": ["${file}", "sample.txt", "1"],
+      // "args": ["sample.txt", "1"],
+      // "program": "${file}",
+      // "outputCapture": "std",
+      "runtimeArgs": [
+        "--loader",
+        "ts-node/esm",
+        "--experimental-specifier-resolution=node"
+      ],
+      // "runtimeArgs": ["-r", "ts-node-esm/register"],
+      // "runtimeArgs": ["-r", "ts-node/register"],
+      "sourceMaps": true,
+      "resolveSourceMapLocations": ["!**/node_modules/**", "!node:internal/**"]
+    },
+    {
+      "name": "Test run TSX",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${fileDirname}",
+      "program": "${workspaceFolder}/node_modules/tsx/dist/cli.js",
+      "args": ["${file}", "sample.txt", "1"],
+      "outputCapture": "std",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "sourceMaps": true
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Test run",
       "skipFiles": ["<node_internals>/**"],
       "cwd": "${fileDirname}",
-      "args": ["sample.txt", 1],
+      "args": ["sample.txt", "1"],
       "program": "${file}"
       // "outputCapture": "std"
     },

@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/lisadean/AdventOfCode/issues"
   },
-  "homepage": "https://github.com/lisadean/AdventOfCode#readme"
+  "homepage": "https://github.com/lisadean/AdventOfCode#readme",
+  "devDependencies": {
+    "@tsconfig/node-lts-strictest-esm": "^18.12.1",
+    "ts-node": "^10.9.1",
+    "tsx": "^3.12.1"
+  },
+  "dependencies": {
+    "typescript": "^4.9.4"
+  }
 }
