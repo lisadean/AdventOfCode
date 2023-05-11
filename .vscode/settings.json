@@ -1,0 +1,6 @@
+{
+  "jestrunner.debugOptions": {
+    "skipFiles": ["**/node_modules/**/*.js", "<node_internals>/**"],
+    "smartStep": true
+  }
+}
